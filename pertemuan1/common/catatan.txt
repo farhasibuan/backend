@@ -1,0 +1,9 @@
+- commonJS adalah type module default punya nodeJS
+- commonJS itu identik dengan riqueri()
+- lalu nama variabel hasil inisiasi tidak boleh sma "module"
+
+//Langkah-Langkah 1
+- instal ?
+- ubah file
+- link sumber:
+- ?
