@@ -1,3 +1,9 @@
 - Cara membuat project node => di termimal(npm init -y)
 - ubah type project di packpage.json => "type" = "module"   
 - readline adalah satu core module punya node js
+
+* pertemuan 4
+-JSON
+-HTML
+-Plain Text
+-Redirect
