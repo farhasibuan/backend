@@ -1,45 +1,33 @@
-const readline = require('readline');
-const validator = require('validator');
+import readline from 'readline';
+import fs from 'fs';
+import validator from 'validator';
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
-function validateName(name) {
-  return name.trim().length > 0;
-}
+console.log(`
+----=(Celamat datang di apk PINJOEL kami)=---
+`);
 
-function validateAge(age) {
-  return !isNaN(age) && age > 0 && age < 150;
-}
+rl.question('Nama: ', (nama) => {
+  rl.question('Umur: ', (umur) => {
+    rl.question('Email: ', (email) => {
+      rl.question('No HP: ', (noHp) => {
+        if (!validator.isInt(umur) || !validator.isEmail(email) || !validator.isMobilePhone(noHp, 'id-ID')) {
+          console.log('Input tidak valid!');
+          rl.close();
+          return;
+        }
 
-function validateEmail(email) {
-  return validator.isEmail(email);
-}
-
-rl.question('Masukkan nama Anda: ', (name) => {
-  if (validateName(name)) {
-    rl.question('Masukkan usia Anda: ', (age) => {
-      if (validateAge(age)) {
-        rl.question('Masukkan email Anda: ', (email) => {
-          if (validateEmail(email)) {
-            console.log(`Nama: ${name}`);
-            console.log(`Usia: ${age}`);
-            console.log(`Email: ${email}`);
-            rl.close();
-          } else {
-            console.log('Email tidak valid.');
-            rl.close();
-          }
-        });
-      } else {
-        console.log('Usia tidak valid.');
+        const contact = { nama, umur, email, noHp };
+        const contacts = JSON.parse(fs.readFileSync('contacts.json', 'utf-8'));
+        contacts.push(contact);
+        fs.writeFileSync('contacts.json', JSON.stringify(contacts));
+        console.log('Data sukses di simpan ngab!!');
         rl.close();
-      }
+      });
     });
-  } else {
-    console.log('Nama tidak valid.');
-    rl.close();
-  }
+  });
 });
