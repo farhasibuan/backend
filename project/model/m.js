@@ -26,4 +26,4 @@ const barang = [
     }
 ]
 
-export default barang
+export default barang //Digunakan ketika kita ingin mengekspor satu nilai utama dari suatu file.

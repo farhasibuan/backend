@@ -1,5 +1,6 @@
-import barang from "../model/m.js";
+import barang from "../model/m.js"; //meminta dari folder model lalu ke file m.js
 
+//Ini untuk menampilkan semua data
 const getData = (req, res) => {
     res.json({
         status: 200,
@@ -8,8 +9,9 @@ const getData = (req, res) => {
     })
 }
 
+//Ini untuk menambahkan data baru
 const postData = (req, res) => {
-    const{harga, namaBrang} = req.body
+    const{harga, namaBrang} = req.body //mengambil data dari req body,dan akan di kirim kan berbentuk JSON
     const id = barang.length + 1
     const dataBaru = {
         id,
@@ -18,12 +20,13 @@ const postData = (req, res) => {
     }
     barang.push(dataBaru)
     res.json({
-        status: 200,
-        message: "Data sukses",
-        data: barang
+        status: 201,
+        message: "Data sukses di tambah" 
     })
 }
 
+
+//Ini untuk menghapus data
 const deleteData = (req, res) => {
     const {id} = req.params
     const index = barang.findIndex((item) => item.id == id)
@@ -35,15 +38,26 @@ const deleteData = (req, res) => {
     })
 }
 
+
+//Ini untuk menampilkan data berdasarkan id
 const getDataById = (req, res) => {
-    const {id} = req.params
-    const data = barang.find((item) => item.id == id)
-    res.json({
-        status: 200,
-        message: "Data sukses",
-        data: data
-    })
+    const {id} = req.params //mengambil id dari parameter URL
+    const data = barang.find((item) => item.id == id) //find digunakan untuk mencari 1 item atau id yang sesuai dengan yang kita inginkan
+    
+    if (!data) {
+        res.status(404).json({
+            status: 404,
+            message: "Data tidak ditemukan"
+        })
+    } else {
+        res.json({
+            status: 200,
+            message: "Ini datanya",
+            data
+        })
+    }
 }
 
 export {
-    getData, postData, deleteData, getDataById}
+    getData, postData, deleteData, getDataById} //Digunakan untuk mengekspor beberapa nilai dari file yang sama. atau banyak
+
